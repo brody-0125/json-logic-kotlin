@@ -1,0 +1,390 @@
+{
+    "implementation": "json-logic-kotlin",
+    "version": "1.0.0",
+    "timestamp": "1767768609284",
+    "summary": {
+        "totalTests": 964,
+        "passed": 934,
+        "failed": 20,
+        "skipped": 10,
+        "passRate": "97.90"
+    },
+    "suites": [
+        {
+            "name": "compatible",
+            "total": 278,
+            "passed": 278,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "arithmetic/plus",
+            "total": 24,
+            "passed": 24,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "arithmetic/plus.extra",
+            "total": 3,
+            "passed": 0,
+            "failed": 0,
+            "skipped": 3,
+            "passRate": "100.00"
+        },
+        {
+            "name": "arithmetic/multiply",
+            "total": 25,
+            "passed": 25,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "arithmetic/multiply.extra",
+            "total": 3,
+            "passed": 0,
+            "failed": 0,
+            "skipped": 3,
+            "passRate": "100.00"
+        },
+        {
+            "name": "arithmetic/minus",
+            "total": 19,
+            "passed": 19,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "arithmetic/minus.extra",
+            "total": 2,
+            "passed": 0,
+            "failed": 0,
+            "skipped": 2,
+            "passRate": "100.00"
+        },
+        {
+            "name": "arithmetic/divide",
+            "total": 19,
+            "passed": 19,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "arithmetic/divide.extra",
+            "total": 2,
+            "passed": 0,
+            "failed": 0,
+            "skipped": 2,
+            "passRate": "100.00"
+        },
+        {
+            "name": "arithmetic/modulo",
+            "total": 14,
+            "passed": 14,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "arithmetic/modulo.extra",
+            "total": 0,
+            "passed": 0,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "comparison/greaterThan",
+            "total": 26,
+            "passed": 25,
+            "failed": 1,
+            "skipped": 0,
+            "passRate": "96.15"
+        },
+        {
+            "name": "comparison/greaterThanEquals",
+            "total": 19,
+            "passed": 18,
+            "failed": 1,
+            "skipped": 0,
+            "passRate": "94.74"
+        },
+        {
+            "name": "comparison/lessThan",
+            "total": 36,
+            "passed": 35,
+            "failed": 1,
+            "skipped": 0,
+            "passRate": "97.22"
+        },
+        {
+            "name": "comparison/lessThanEquals",
+            "total": 14,
+            "passed": 13,
+            "failed": 1,
+            "skipped": 0,
+            "passRate": "92.86"
+        },
+        {
+            "name": "comparison/softEquals",
+            "total": 26,
+            "passed": 25,
+            "failed": 1,
+            "skipped": 0,
+            "passRate": "96.15"
+        },
+        {
+            "name": "comparison/softNotEquals",
+            "total": 25,
+            "passed": 24,
+            "failed": 1,
+            "skipped": 0,
+            "passRate": "96.00"
+        },
+        {
+            "name": "comparison/strictEquals",
+            "total": 28,
+            "passed": 27,
+            "failed": 1,
+            "skipped": 0,
+            "passRate": "96.43"
+        },
+        {
+            "name": "comparison/strictNotEquals",
+            "total": 27,
+            "passed": 26,
+            "failed": 1,
+            "skipped": 0,
+            "passRate": "96.30"
+        },
+        {
+            "name": "control/and",
+            "total": 24,
+            "passed": 24,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "control/if",
+            "total": 43,
+            "passed": 43,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "control/or",
+            "total": 23,
+            "passed": 23,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "control/not",
+            "total": 23,
+            "passed": 23,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "control/doublebang",
+            "total": 23,
+            "passed": 23,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "string/in",
+            "total": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "string/cat",
+            "total": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "string/substr",
+            "total": 12,
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "array/map",
+            "total": 12,
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "array/filter",
+            "total": 10,
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "array/reduce",
+            "total": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "array/merge",
+            "total": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "array/all",
+            "total": 10,
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "array/some",
+            "total": 11,
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "array/none",
+            "total": 11,
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "truthiness",
+            "total": 13,
+            "passed": 13,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "additional",
+            "total": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "coalesce",
+            "total": 15,
+            "passed": 15,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "chained",
+            "total": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "iterators.extra",
+            "total": 0,
+            "passed": 0,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "exists",
+            "total": 8,
+            "passed": 7,
+            "failed": 1,
+            "skipped": 0,
+            "passRate": "87.50"
+        },
+        {
+            "name": "scopes",
+            "total": 4,
+            "passed": 0,
+            "failed": 4,
+            "skipped": 0,
+            "passRate": "0.00"
+        },
+        {
+            "name": "throw",
+            "total": 0,
+            "passed": 0,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "try",
+            "total": 10,
+            "passed": 7,
+            "failed": 3,
+            "skipped": 0,
+            "passRate": "70.00"
+        },
+        {
+            "name": "try.extra",
+            "total": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "passRate": "0.00"
+        },
+        {
+            "name": "val",
+            "total": 13,
+            "passed": 13,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        },
+        {
+            "name": "val.extra",
+            "total": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "passRate": "0.00"
+        },
+        {
+            "name": "val-compat",
+            "total": 60,
+            "passed": 60,
+            "failed": 0,
+            "skipped": 0,
+            "passRate": "100.00"
+        }
+    ]
+}
