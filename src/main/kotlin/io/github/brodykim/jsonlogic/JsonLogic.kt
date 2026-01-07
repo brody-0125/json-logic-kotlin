@@ -4,6 +4,7 @@ import com.github.benmanes.caffeine.cache.Caffeine
 import com.github.benmanes.caffeine.cache.Cache
 import io.github.brodykim.jsonlogic.ast.JsonLogicNode
 import io.github.brodykim.jsonlogic.ast.JsonLogicParser
+import org.slf4j.LoggerFactory
 import io.github.brodykim.jsonlogic.evaluator.JsonLogicEvaluator
 import io.github.brodykim.jsonlogic.evaluator.JsonLogicExpression
 import io.github.brodykim.jsonlogic.evaluator.PreEvaluatedArgumentsExpression
@@ -55,7 +56,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReentrantReadWriteLock
-import kotlin.concurrent.read
 import kotlin.concurrent.write
 
 /**
@@ -64,7 +64,8 @@ import kotlin.concurrent.write
  * @author brody kim
  * @since 2026.01.07
  */
-class JsonLogic(private val maxCacheSize: Int = DEFAULT_CACHE_SIZE) {
+class JsonLogic(maxCacheSize: Int = DEFAULT_CACHE_SIZE) {
+    private val logger = LoggerFactory.getLogger(JsonLogic::class.java)
 
     private val parseCache: Cache<String, JsonLogicNode> = Caffeine.newBuilder()
         .maximumSize(maxCacheSize.toLong())
@@ -145,6 +146,7 @@ class JsonLogic(private val maxCacheSize: Int = DEFAULT_CACHE_SIZE) {
         evaluatorLock.write {
             expressions[expression.key] = expression
             expressionVersion++
+            logger.debug("Registered custom operation: {}", expression.key)
         }
     }
 
@@ -157,7 +159,16 @@ class JsonLogic(private val maxCacheSize: Int = DEFAULT_CACHE_SIZE) {
     }
 
     fun apply(rules: String, data: Any?): Any? {
-        val node = parseCache.get(rules) { JsonLogicParser.parse(it) }
+        val cached = parseCache.getIfPresent(rules)
+        val node = if (cached != null) {
+            logger.debug("Cache hit for rule: {}", rules.take(100))
+            cached
+        } else {
+            logger.debug("Cache miss, parsing rule: {}", rules.take(100))
+            val parsed = JsonLogicParser.parse(rules)
+            parseCache.put(rules, parsed)
+            parsed
+        }
         return apply(node, data)
     }
 

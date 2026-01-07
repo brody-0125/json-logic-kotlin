@@ -7,6 +7,7 @@ import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import org.slf4j.LoggerFactory
 
 /**
  * Parser that converts JSON strings into JsonLogic AST nodes.
@@ -15,13 +16,20 @@ import kotlinx.serialization.json.JsonPrimitive
  * @since 2026.01.07
  */
 object JsonLogicParser {
+    private val logger = LoggerFactory.getLogger(JsonLogicParser::class.java)
     private val json = Json { ignoreUnknownKeys = true }
 
     fun parse(jsonString: String): JsonLogicNode {
+        val startTime = System.nanoTime()
         return try {
             val element = json.parseToJsonElement(jsonString)
-            parseElement(element)
+            val node = parseElement(element)
+            val elapsedMs = (System.nanoTime() - startTime) / 1_000_000.0
+            logger.debug("Parsed in {}ms: {} -> {}", "%.2f".format(elapsedMs), jsonString.take(50), node::class.simpleName)
+            node
         } catch (e: Exception) {
+            val elapsedMs = (System.nanoTime() - startTime) / 1_000_000.0
+            logger.warn("Parse failed in {}ms: {} - {}", "%.2f".format(elapsedMs), jsonString.take(50), e.message)
             when (e) {
                 is JsonLogicParseException -> throw e
                 else -> throw JsonLogicParseException("Failed to parse JSON: ${e.message}", e)
