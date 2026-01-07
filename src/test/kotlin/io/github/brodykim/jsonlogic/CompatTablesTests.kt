@@ -4,6 +4,7 @@ import kotlinx.serialization.json.*
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 import org.junit.jupiter.api.Assertions.*
+import org.slf4j.LoggerFactory
 import java.io.File
 
 /**
@@ -13,6 +14,7 @@ import java.io.File
  * https://github.com/json-logic/compat-tables/tree/main/suites
  */
 class CompatTablesTests {
+    private val logger = LoggerFactory.getLogger(CompatTablesTests::class.java)
     private val jsonLogic = JsonLogic()
     private val json = Json { ignoreUnknownKeys = true }
     private val suitesDir = File("compat-tests/suites")
@@ -99,7 +101,7 @@ class CompatTablesTests {
         } catch (e: JsonLogicUnknownOperatorException) {
             // Some tests use operations not in standard JsonLogic (val, throw, try, etc.)
             // Mark as skipped by not failing
-            System.err.println("Skipped (unknown operator): $testName - ${e.operator}")
+            logger.warn("Skipped (unknown operator): {} - {}", testName, e.operator)
         } catch (e: Exception) {
             fail<Unit>("$testName failed with exception: ${e.message}\nRule: $ruleStr")
         }

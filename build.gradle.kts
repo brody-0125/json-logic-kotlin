@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.github.brodykim.jsonlogic"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -14,9 +14,11 @@ repositories {
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
     implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
+    implementation("org.slf4j:slf4j-api:2.0.9")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
+    testImplementation("ch.qos.logback:logback-classic:1.5.13")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

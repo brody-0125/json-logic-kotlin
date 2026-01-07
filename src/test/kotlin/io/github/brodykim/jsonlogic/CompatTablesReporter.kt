@@ -1,12 +1,14 @@
 package io.github.brodykim.jsonlogic
 
 import kotlinx.serialization.json.*
+import org.slf4j.LoggerFactory
 import java.io.File
 
 /**
  * Generates a compatibility report for json-logic-kotlin against compat-tables test suites.
  */
 object CompatTablesReporter {
+    private val logger = LoggerFactory.getLogger(CompatTablesReporter::class.java)
     private val jsonLogic = JsonLogic()
     private val json = Json { ignoreUnknownKeys = true; prettyPrint = true }
     private val suitesDir = File("compat-tests/suites")
@@ -38,7 +40,7 @@ object CompatTablesReporter {
     @JvmStatic
     fun main(args: Array<String>) {
         if (!suitesDir.exists()) {
-            println("Test suites not found at ${suitesDir.absolutePath}")
+            logger.error("Test suites not found at {}", suitesDir.absolutePath)
             return
         }
 
@@ -69,15 +71,15 @@ object CompatTablesReporter {
         // Save results
         saveResults(allResults, failedTests, totalTests, totalPassed, totalFailed, totalSkipped, overallPassRate)
 
-        println("\n" + "=".repeat(60))
-        println("COMPATIBILITY TEST RESULTS")
-        println("=".repeat(60))
-        println("Total Tests: $totalTests")
-        println("Passed: $totalPassed")
-        println("Failed: $totalFailed")
-        println("Skipped: $totalSkipped (non-standard operations)")
-        println("Pass Rate: ${"%.2f".format(overallPassRate)}% (excluding skipped)")
-        println("=".repeat(60))
+        logger.info("\n" + "=".repeat(60))
+        logger.info("COMPATIBILITY TEST RESULTS")
+        logger.info("=".repeat(60))
+        logger.info("Total Tests: {}", totalTests)
+        logger.info("Passed: {}", totalPassed)
+        logger.info("Failed: {}", totalFailed)
+        logger.info("Skipped: {} (non-standard operations)", totalSkipped)
+        logger.info("Pass Rate: {}% (excluding skipped)", "%.2f".format(overallPassRate))
+        logger.info("=".repeat(60))
     }
 
     private fun runSuite(suiteName: String): SuiteResult? {

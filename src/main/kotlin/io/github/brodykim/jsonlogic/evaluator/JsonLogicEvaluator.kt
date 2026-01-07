@@ -10,6 +10,7 @@ import io.github.brodykim.jsonlogic.ast.JsonLogicNumber
 import io.github.brodykim.jsonlogic.ast.JsonLogicOperation
 import io.github.brodykim.jsonlogic.ast.JsonLogicString
 import io.github.brodykim.jsonlogic.utils.TypeCoercion
+import org.slf4j.LoggerFactory
 
 /**
  * Core evaluation engine for JsonLogic that evaluates AST nodes against provided data.
@@ -17,14 +18,10 @@ import io.github.brodykim.jsonlogic.utils.TypeCoercion
  * @author brody kim
  * @since 2026.01.07
  */
-data class ScopeFrame(
-    val data: Any?,
-    val index: Int = -1
-)
-
 class JsonLogicEvaluator(
     private val expressions: Map<String, JsonLogicExpression>
 ) {
+    private val logger = LoggerFactory.getLogger(JsonLogicEvaluator::class.java)
     private val scopeStack = ThreadLocal.withInitial { mutableListOf<ScopeFrame>() }
 
     fun getScopeStack(): List<ScopeFrame> = scopeStack.get()
@@ -49,11 +46,11 @@ class JsonLogicEvaluator(
                 stack.firstOrNull()?.data
             } else {
                 val index = stack.size - level
-                if (index >= 0 && index < stack.size) stack[index].data else null
+                if (index >= 0) stack[index].data else null
             }
         } else {
             val index = stack.size + level
-            if (index >= 0 && index < stack.size) stack[index].data else null
+            if (index >= 0) stack[index].data else null
         }
     }
 
@@ -111,11 +108,15 @@ class JsonLogicEvaluator(
 
     private fun evaluateOperation(operation: JsonLogicOperation, data: Any?): Any? {
         val expression = expressions[operation.operator]
-            ?: throw JsonLogicUnknownOperatorException(operation.operator)
+        if (expression == null) {
+            logger.warn("Unknown operator: {}", operation.operator)
+            throw JsonLogicUnknownOperatorException(operation.operator)
+        }
 
         val rawArgs = operation.arguments.value
+        logger.debug("Evaluating operation: {} with {} args", operation.operator, rawArgs.size)
 
-        return when (expression) {
+        val result = when (expression) {
             is LazyEvaluatedArgumentsExpression -> {
                 val pool = getPool()
                 val lazyArgs = pool.acquire(rawArgs.size)
@@ -133,6 +134,9 @@ class JsonLogicEvaluator(
                 expression.evaluate(evaluatedArgs, data, this)
             }
         }
+
+        logger.debug("Operation {} returned: {}", operation.operator, result?.toString()?.take(50))
+        return result
     }
 
     fun evaluateTruthy(node: JsonLogicNode, data: Any?): Boolean {
@@ -220,3 +224,8 @@ class LazyArg internal constructor() {
         return eval.evaluate(n, newData)
     }
 }
+
+data class ScopeFrame(
+    val data: Any?,
+    val index: Int = -1
+)
